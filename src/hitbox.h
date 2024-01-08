@@ -3,12 +3,14 @@
     #include "C:\Program Files (x86)\Intel RealSense SDK 2.0\include\librealsense2\rs.hpp"
     // #include "C:\Program Files (x86)\Intel RealSense SDK 2.0\samples\example.hpp"
 #endif
-class GenSim{
+#include <raylib.h>
+
+class HitBox{
 
     public:
-    GenSim();
-    void DrawPointCloud(rs2::points points);
-    void DrawRover(bool c);
-    void DrawRoute();
+    HitBox(Vector3 pos, float _len, float _width, float _depth);
 
+    void DrawHitbox();
+
+    
 };

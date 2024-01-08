@@ -54,7 +54,6 @@ int main()
         DrawFPS(10,10);
         EndDrawing();
 
-        std::cout << GetFPS() << std::endl;
     }
 
     CloseWindow();
