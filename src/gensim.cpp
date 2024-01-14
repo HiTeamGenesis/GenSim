@@ -5,7 +5,6 @@
 #endif
 
 
-
 #include <raylib.h>
 #include <iostream>
 #include <vector>
@@ -13,6 +12,8 @@
 
 GenSim::GenSim(){
     std::cout << "GenSim: Initialized" << std::endl;
+
+
 }
 
 float Vector3Distance(rs2::vertex v1, rs2::vertex v2) {
@@ -26,18 +27,20 @@ void GenSim::DrawRoute(){
 
 void GenSim::DrawRover(bool c){
 
+
     auto roverPos = Vector3{0, 0, 0};
 
-    float rover_width_cm = 45; //cm
-    float rover_length_cm = 69; //cm
-    float rover_height_cm = 20; //cm
-
+    float rover_width_cm = 150; //cm
+    float rover_length_cm = 150; //cm
+    float rover_height_cm = 3; //cm
+    Vector3 position = { 0.0f, 0.0f, 0.5f };   
     // Todo tiene escala de 10
     if(c){
-        DrawCube(roverPos, rover_width_cm/10, rover_height_cm/10, rover_length_cm/10, RED);
+        DrawCube(roverPos, rover_width_cm/10, rover_height_cm/10, rover_length_cm/10, ColorAlpha(RED, 0.2));
     }else{
-        DrawCube(roverPos, rover_width_cm/10, rover_height_cm/10, rover_length_cm/10, BLUE);
+        DrawCube(roverPos, rover_width_cm/10, rover_height_cm/10, rover_length_cm/10, ColorAlpha(BLUE, 0.2));
     }
+    DrawModel(this->model, position, 0.05f, WHITE);
 
 }
 
@@ -46,6 +49,11 @@ rs2::vertex get_point(const std::vector<rs2::vertex>& vertices, int width, int x
     int index = y * width + x;
     return vertices[index];
 }
+
+Model GenSim::getModel(){
+    return this->model;
+}
+
 
 void GenSim::DrawPointCloud(rs2::points points){
 
@@ -56,7 +64,7 @@ void GenSim::DrawPointCloud(rs2::points points){
 
     // w      h
     // 1280 x 720 = 921600 = points.size() 
-    for (size_t i = 0; i < points.size(); i+=10)
+    for (size_t i = 0; i < points.size(); i+=5)
     {
 
         // std::cout << Vector3Distance(vertices[i], vertices[i+1]) << std::endl;
@@ -74,7 +82,7 @@ void GenSim::DrawPointCloud(rs2::points points){
             // auto cubeColor = ColorFromHSV(hue, 0.75f, 0.9f);
 
 
-            if(vertices[i].z*20 < 10){
+            if(vertices[i].z*20 < 15){
                 DrawCube(cubePos, cubeSize, cubeSize, cubeSize, RED);
                 colliding = true;
             }else{
